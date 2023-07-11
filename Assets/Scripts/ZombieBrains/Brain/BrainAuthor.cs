@@ -1,23 +1,34 @@
+using Unity.Transforms;
 using UnityEngine;
 
 namespace ZombieBrains
 {
     public class BrainAuthor : MonoBehaviour
     {
-        public Bounds Bounds
+        public float Radius
         {
             get
             {
-                if (_collider != null)
+                if (_collider == null)
                 {
-                    Bounds bounds = _collider.bounds;
-                    return new Bounds(bounds.center, bounds.size * 2f);
+                    return 0;
                 }
-                return new Bounds();
+                Vector3 lossyScale = _collider.transform.localScale;
+                float maxScaleComponent = lossyScale[0];
+                for (int i = 1; i < 3; i++)
+                {
+                    if (lossyScale[i] > maxScaleComponent)
+                    {
+                        maxScaleComponent = lossyScale[i];
+                    }
+                }
+                return (_collider.radius * maxScaleComponent) + _radiusMargin;
             }
         }
 
         [SerializeField]
-        private Collider _collider;
+        private SphereCollider _collider;
+        [SerializeField]
+        private float _radiusMargin = 1f;
     }
 }

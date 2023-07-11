@@ -6,24 +6,14 @@ namespace ZombieBrains
 {
     public struct Brain : IComponentData
     {
+        public float Radius => _radius;
+
         [SerializeField]
-        private float3 _boundsMin;
-        [SerializeField] 
-        private float3 _boundsMax;
+        private float _radius;
 
-        public Brain(Bounds bounds)
+        public Brain(float radius)
         {
-            _boundsMin = bounds.min;
-            _boundsMax = bounds.max;
-        }
-
-        public bool Contains(float3 p)
-        {
-            return Contains(p, 0) && Contains(p, 1) && Contains(p, 2);
-        }
-        private bool Contains(float3 p, int dimension)
-        {
-            return p[dimension] >= _boundsMin[dimension] && p[dimension] <= _boundsMax[dimension];
+            _radius = radius;
         }
     }
 }
