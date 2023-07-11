@@ -9,10 +9,9 @@ namespace ZombieBrains
     public readonly partial struct ZombieRiseAspect : IAspect
     {
         public readonly Entity Entity;
-
         private readonly RefRW<LocalTransform> _transform;
         private readonly RefRO<Zombie> _zombie;
-        private readonly RefRO<ZombieRiseTag> _riseTag;
+        private readonly RefRO<ZombieRiseTag> _tag;
 
         public void Rise(float delta)
         {

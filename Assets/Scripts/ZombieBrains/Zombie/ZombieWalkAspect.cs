@@ -2,12 +2,13 @@ using Unity.Core;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 
 namespace ZombieBrains
 {
     public readonly partial struct ZombieWalkAspect : IAspect
     {
+        public readonly Entity Entity;
+
         private readonly RefRW<LocalTransform> _transform;
         private readonly RefRO<Zombie> _zombie;
         private readonly RefRO<ZombieWalkTag> _tag;
@@ -37,6 +38,10 @@ namespace ZombieBrains
             float sway = zombieRO.SwayAmplitude * (float)math.sin(zombieRO.SwayFrequency * timerRO.TimeSince(current));
             float3 up = math.up() + transformRO.Right() * sway;
             return quaternion.LookRotation(transformRO.Forward(), up);
+        }
+        public bool IsInStoppingRange(Brain brain)
+        {
+            return brain.Contains(_transform.ValueRO.Position, _zombie.ValueRO.BrainMargin);
         }
     }
 }

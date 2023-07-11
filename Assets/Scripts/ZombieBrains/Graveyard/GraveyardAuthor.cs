@@ -11,6 +11,7 @@ namespace ZombieBrains
         public int TotalTombstones => _totalTombstones;
         public Vector2 TombstoneRotation => _tombstoneRotation;
         public Vector2 TombstoneScale => _tombstoneScale;
+        public float TombstoneBrainMargin => _tombstoneBrainMargin;
         public GameObject TombstonePrefab => _tombstonePrefab;
         public float ZombieSpawnDelay => _zombieSpawnDelay;
 
@@ -20,6 +21,8 @@ namespace ZombieBrains
         private Vector2 _tombstoneRotation = new Vector2(-0.25f, 0.25f);
         [SerializeField]
         private Vector2 _tombstoneScale = new Vector2(0.5f, 1.5f);
+        [SerializeField]
+        private float _tombstoneBrainMargin = 5;
         [SerializeField]
         private GameObject _tombstonePrefab;
         [SerializeField]

@@ -15,7 +15,7 @@ namespace ZombieBrains
         private const int MaxRandomPositionAttempts = 10;
 
         private Graveyard _graveyard;
-        private BrainAspect _brain;
+        private Brain _brain;
         private Ground _ground;
         private Random _random;
         private EntityCommandBuffer _commandBuffer;
@@ -40,12 +40,10 @@ namespace ZombieBrains
         private void SetupInstanceVariables(ref SystemState state)
         {
             _graveyard = GetSingleton<Graveyard>();
+            _brain = GetSingleton<Brain>();
             _ground = GetSingleton<Ground>();
             _random = Random.CreateFromIndex(RandomSeed);
             _commandBuffer = new EntityCommandBuffer(Allocator.Temp);
-
-            Entity brainEntity = GetSingletonEntity<Brain>();
-            _brain = GetAspect<BrainAspect>(brainEntity);
         }
         private void BufferAllNewTombstones()
         {
@@ -78,7 +76,7 @@ namespace ZombieBrains
             {
                 position = _random.NextFloat3(_ground.SurfaceMin, _ground.SurfaceMax);
                 attempts++;
-            } while(_brain.Contains(position) && attempts < MaxRandomPositionAttempts);
+            } while(_brain.Contains(position, _graveyard.TombstoneBrainMargin) && attempts < MaxRandomPositionAttempts);
 
             return position;
         }

@@ -7,7 +7,9 @@ namespace ZombieBrains
         public override void Bake(BrainAuthor authoring)
         {
             Entity brainEntity = GetEntity(TransformUsageFlags.Renderable);
-            AddComponent(brainEntity, new Brain(authoring.Radius));
+            AddComponent(brainEntity, new Brain(
+                authoring.transform.position,
+                authoring.Radius));
         }
     }   
 }

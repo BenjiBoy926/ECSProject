@@ -16,6 +16,7 @@ namespace ZombieBrains
                 authoring.TotalTombstones,
                 authoring.TombstoneRotation,
                 authoring.TombstoneScale,
+                authoring.TombstoneBrainMargin,
                 tombstonePrefabEntity,
                 authoring.ZombieSpawnDelay);
             AddComponent(graveyardEntity, graveyard);

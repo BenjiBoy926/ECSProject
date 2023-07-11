@@ -12,6 +12,7 @@ namespace ZombieBrains
         public float TombstoneRotationMax => _tombstoneRotation.y;
         public float TombstoneScaleMin => _tombstoneScale.x;
         public float TombstoneScaleMax => _tombstoneScale.y;
+        public float TombstoneBrainMargin => _tombstoneBrainMargin;
         public Entity TombstonePrefab => _tombstonePrefab;
         public float ZombieSpawnDelay => _zombieSpawnDelay;
 
@@ -22,6 +23,8 @@ namespace ZombieBrains
         [SerializeField]
         private float2 _tombstoneScale;
         [SerializeField]
+        private float _tombstoneBrainMargin;
+        [SerializeField]
         private Entity _tombstonePrefab;
         [SerializeField]
         private float _zombieSpawnDelay;
@@ -29,12 +32,14 @@ namespace ZombieBrains
         public Graveyard(int totalTombstones, 
             float2 tombstoneRotation,
             float2 tombstoneScale,
+            float tombstoneBrainMargin,
             Entity tombstonePrefab,
             float zombieSpawnDelay)
         {
             _totalTombstones = totalTombstones;
             _tombstoneRotation = tombstoneRotation;
             _tombstoneScale = tombstoneScale;
+            _tombstoneBrainMargin = tombstoneBrainMargin;
             _tombstonePrefab = tombstonePrefab;
             _zombieSpawnDelay = zombieSpawnDelay;
         }

@@ -22,13 +22,11 @@ namespace ZombieBrains
                         maxScaleComponent = lossyScale[i];
                     }
                 }
-                return (_collider.radius * maxScaleComponent) + _radiusMargin;
+                return _collider.radius * maxScaleComponent;
             }
         }
 
         [SerializeField]
         private SphereCollider _collider;
-        [SerializeField]
-        private float _radiusMargin = 1f;
     }
 }

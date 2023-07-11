@@ -14,7 +14,8 @@ namespace ZombieBrains
                 authoring.RiseSpeed,
                 authoring.WalkSpeed,
                 authoring.SwayAmplitude,
-                authoring.SwayFrequency));
+                authoring.SwayFrequency,
+                authoring.BrainMargin));
             AddComponent(zombie, new ZombieRiseTag());
             AddComponent(zombie, new Timer());
         }

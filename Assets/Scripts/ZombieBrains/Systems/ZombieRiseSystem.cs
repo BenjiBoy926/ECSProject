@@ -20,16 +20,14 @@ namespace ZombieBrains
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            var singleton = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
+            var commandWriter = singleton.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter();
+
             ZombieRiseJob job = new ZombieRiseJob();
             job.SetDelta(Time.DeltaTime);
             job.SetGroundLevel(GetSingleton<Ground>().SurfaceY);
-            job.SetCommandBuffer(GetParallelWriter(ref state));
+            job.SetCommandWriter(commandWriter);
             job.ScheduleParallel();
-        }
-        private EntityCommandBuffer.ParallelWriter GetParallelWriter(ref SystemState state)
-        {
-            var singleton = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
-            return singleton.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter();
         }
     }
 
@@ -48,7 +46,7 @@ namespace ZombieBrains
         {
             _groundLevel = groundLevel;
         }
-        public void SetCommandBuffer(EntityCommandBuffer.ParallelWriter commandWriter)
+        public void SetCommandWriter(EntityCommandBuffer.ParallelWriter commandWriter)
         {
             _commandWriter = commandWriter;
         }
