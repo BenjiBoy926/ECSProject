@@ -15,12 +15,20 @@ namespace ZombieBrains
 
         public void Walk(TimeData current)
         {
+            _transform.ValueRW.Position = NextPosition(current);
+            _transform.ValueRW.Rotation = NextRotation(current);
+        }
+        private float3 NextPosition(TimeData current)
+        {
+            LocalTransform transformRO = _transform.ValueRO;
+            Zombie zombieRO = _zombie.ValueRO;
+            return transformRO.Position + transformRO.Forward() * zombieRO.WalkSpeed * current.DeltaTime; 
+        }
+        private quaternion NextRotation(TimeData current)
+        {
             LocalTransform transformRO = _transform.ValueRO;
             Zombie zombieRO = _zombie.ValueRO;
             Timer timerRO = _timer.ValueRO;
-            float3 forward = transformRO.Forward();
-
-            _transform.ValueRW.Position += forward * zombieRO.WalkSpeed * current.DeltaTime;
 
             if (!timerRO.IsRunning)
             {
@@ -28,7 +36,7 @@ namespace ZombieBrains
             }
             float sway = zombieRO.SwayAmplitude * (float)math.sin(zombieRO.SwayFrequency * timerRO.TimeSince(current));
             float3 up = math.up() + transformRO.Right() * sway;
-            _transform.ValueRW.Rotation = quaternion.LookRotation(forward, up);
+            return quaternion.LookRotation(transformRO.Forward(), up);
         }
     }
 }
