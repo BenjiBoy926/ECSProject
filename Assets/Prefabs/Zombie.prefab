@@ -296,7 +296,7 @@ MonoBehaviour:
   _riseSpeed: 1
   _walkSpeed: 0.5
   _swayAmplitude: 0.2
-  _swayFrequency: 1
+  _swayFrequency: 2
 --- !u!1 &7113616616879287334
 GameObject:
   m_ObjectHideFlags: 0

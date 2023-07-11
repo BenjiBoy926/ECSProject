@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst;
+using Unity.Core;
 using Unity.Entities;
 using static Unity.Entities.SystemAPI;
 
@@ -18,7 +19,7 @@ namespace ZombieBrains
         public void OnUpdate(ref SystemState state)
         {
             ZombieWalkJob job = new ZombieWalkJob();
-            job.SetDelta(Time.DeltaTime);
+            job.SetCurrentTime(Time);
             job.ScheduleParallel();
         }
     }
@@ -26,17 +27,17 @@ namespace ZombieBrains
     [BurstCompile]
     public partial struct ZombieWalkJob : IJobEntity
     {
-        private float _delta;
+        private TimeData _current;
 
-        public void SetDelta(float delta)
+        public void SetCurrentTime(TimeData current)
         {
-            _delta = delta;
+            _current = current;
         }
 
         [BurstCompile]
         private void Execute(ZombieWalkAspect zombie)
         {
-            zombie.Walk(_delta);
+            zombie.Walk(_current);
         }
     }
 }

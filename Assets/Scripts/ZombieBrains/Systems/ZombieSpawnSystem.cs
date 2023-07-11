@@ -31,10 +31,10 @@ namespace ZombieBrains
             Entity graveyardEntity = GetSingletonEntity<Graveyard>();
             GraveyardAspect graveyard = GetAspect<GraveyardAspect>(graveyardEntity);
 
-            if (graveyard.IsTimeToSpawnZombie())
+            if (graveyard.IsTimeToSpawnZombie(Time))
             {
                 SpawnZombie(ref state);
-                graveyard.StartTimer();
+                graveyard.StartTimer(Time);
             }
         }
         

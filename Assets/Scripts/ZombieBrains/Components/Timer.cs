@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Core;
 using Unity.Entities;
 using UnityEngine;
 
@@ -8,35 +9,32 @@ namespace ZombieBrains
     public struct Timer : IComponentData
     {
         public bool IsRunning => _isRunning;
-        public float TimeElapsed
-        {
-            get
-            {
-                if (!_isRunning)
-                {
-                    return 0;
-                }
-                return Time.time - _startTime;
-            }
-        }
 
         [SerializeField]
         private bool _isRunning;
         [SerializeField]
-        private float _startTime;
+        private double _startTime;
 
-        public void Start()
+        public void Start(TimeData timeData)
         {
             _isRunning = true;
-            _startTime = Time.time;
+            _startTime = timeData.ElapsedTime;
         }
-        public bool IsTimeElapsed(float time)
+        public double TimeSince(TimeData timeData)
+        {
+            if (!_isRunning)
+            {
+                return 0;
+            }
+            return timeData.ElapsedTime - _startTime;
+        }
+        public bool IsTimeElapsed(TimeData current, double elapsed)
         {
             if (!_isRunning)
             {
                 return false;
             }
-            return TimeElapsed >= time;
+            return TimeSince(current) >= elapsed;
         }
     }
 }
