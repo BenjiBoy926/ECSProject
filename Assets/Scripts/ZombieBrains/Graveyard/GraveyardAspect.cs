@@ -16,6 +16,10 @@ namespace ZombieBrains
         }
         public bool IsTimeToSpawnZombie()
         {
+            if (!_timer.ValueRO.IsRunning)
+            {
+                StartTimer();
+            }
             return _timer.ValueRO.IsTimeElapsed(_graveyard.ValueRO.ZombieSpawnDelay);
         }
     }
