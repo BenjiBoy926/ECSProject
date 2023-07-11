@@ -10,7 +10,13 @@ namespace ZombieBrains
         public override void Bake(ZombieAuthor authoring)
         {
             Entity zombie = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent(zombie, new Zombie());
+            AddComponent(zombie, new Zombie(
+                authoring.RiseSpeed,
+                authoring.WalkSpeed,
+                authoring.SwayAmplitude,
+                authoring.SwayFrequency));
+            AddComponent(zombie, new ZombieRiseTag());
+            AddComponent(zombie, new Timer());
         }
     }
 }

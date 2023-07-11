@@ -293,6 +293,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c788e9c579ab0e3429a07f5438a0b745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _riseSpeed: 1
+  _walkSpeed: 0.5
+  _swayAmplitude: 0.2
+  _swayFrequency: 1
 --- !u!1 &7113616616879287334
 GameObject:
   m_ObjectHideFlags: 0

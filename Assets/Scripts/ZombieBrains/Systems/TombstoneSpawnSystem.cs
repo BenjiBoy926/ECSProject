@@ -9,7 +9,7 @@ namespace ZombieBrains
 {
     [BurstCompile]
     [UpdateInGroup(typeof(InitializationSystemGroup))]
-    public partial struct SpawnTombstoneSystem : ISystem
+    public partial struct TombstoneSpawnSystem : ISystem
     {
         private const int RandomSeed = 1000;
         private const int MaxRandomPositionAttempts = 10;

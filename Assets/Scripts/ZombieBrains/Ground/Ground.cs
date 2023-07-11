@@ -8,6 +8,7 @@ namespace ZombieBrains
     {
         public float3 SurfaceMin => _surfaceMin;
         public float3 SurfaceMax => _surfaceMax;
+        public float SurfaceY => _surfaceMax.y;
 
         [SerializeField]
         private float3 _surfaceMin;

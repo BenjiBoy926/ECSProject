@@ -8,7 +8,7 @@ using static Unity.Entities.SystemAPI;
 namespace ZombieBrains
 {
     [BurstCompile]
-    public partial struct SpawnZombieSystem : ISystem
+    public partial struct ZombieSpawnSystem : ISystem
     {
         private Random _random;
         private EntityQuery _tombstoneQuery;
@@ -47,7 +47,7 @@ namespace ZombieBrains
             {
                 Position = _randomlySelectedTombstone.ZombieSpawnPosition,
                 Rotation = GetZombieRotation(ref state),
-                Scale = 1
+                Scale = _randomlySelectedTombstone.Scale
             });
         }
         private TombstoneAspect GetRandomTombstone(ref SystemState state)
@@ -68,7 +68,7 @@ namespace ZombieBrains
             BrainAspect brain = GetAspect<BrainAspect>(brainEntity);
             float3 toBrain = brain.Position - _randomlySelectedTombstone.ZombieSpawnPosition;
             toBrain.y = 0;
-            return quaternion.LookRotation(toBrain, new float3(0, 1, 0));
+            return quaternion.LookRotation(toBrain, math.up());
         }
     }
 }
