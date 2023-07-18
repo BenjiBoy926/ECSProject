@@ -10,6 +10,9 @@ namespace ZombieBrains
         public float WalkSpeed => _walkSpeed;
         public float SwayAmplitude => _swayAmplitude;
         public float SwayFrequency => _swayFrequency;
+        public float EatDamagePerSecond => _eatDamagePerSecond;
+        public float EatAmplitude => _eatAmplitude;
+        public float EatFrequency => _eatFrequency;
         public float BrainMargin => _brainMargin;
 
         [SerializeField]
@@ -20,6 +23,12 @@ namespace ZombieBrains
         private float _swayAmplitude;
         [SerializeField]
         private float _swayFrequency;
+        [SerializeField]
+        private float _eatDamagePerSecond;
+        [SerializeField]
+        private float _eatAmplitude;
+        [SerializeField] 
+        private float _eatFrequency;
         [SerializeField]
         private float _brainMargin = 0.5f;
     }
