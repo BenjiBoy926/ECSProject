@@ -17,7 +17,19 @@ namespace ZombieBrains
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            GetAspect<BrainAspect>(GetSingletonEntity<Brain>()).TakeBufferedDamage();
+            if (!HasSingleton<Brain>())
+            {
+                state.Enabled = false;
+                return;
+            }
+
+            BrainAspect brain = GetAspect<BrainAspect>(GetSingletonEntity<Brain>());
+            brain.TakeBufferedDamage();
+            if (!brain.IsAlive)
+            {
+                EntityCommandBuffer commandBuffer = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
+                commandBuffer.DestroyEntity(brain.Entity);
+            }
         }
     }
 }

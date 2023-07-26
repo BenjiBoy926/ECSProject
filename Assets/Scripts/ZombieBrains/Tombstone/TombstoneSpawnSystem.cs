@@ -33,7 +33,6 @@ namespace ZombieBrains
             SetupInstanceVariables(ref state);
             BufferAllNewTombstones();         
             _commandBuffer.Playback(state.EntityManager);
-
             state.Enabled = false;
         }
 

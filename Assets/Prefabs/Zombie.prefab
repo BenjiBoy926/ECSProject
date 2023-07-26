@@ -295,12 +295,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _riseSpeed: 1
   _walkSpeed: 0.5
+  _stoppingRange: 0.5
   _swayAmplitude: 0.5
   _swayFrequency: 2
   _eatDamagePerSecond: 1
   _eatAmplitude: 1
   _eatFrequency: 10
-  _brainMargin: 0.5
+  _eatingRange: 1
 --- !u!1 &7113616616879287334
 GameObject:
   m_ObjectHideFlags: 0

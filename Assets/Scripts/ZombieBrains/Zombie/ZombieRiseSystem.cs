@@ -20,8 +20,9 @@ namespace ZombieBrains
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var singleton = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
-            var commandWriter = singleton.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter();
+            var commandWriter = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
+                .CreateCommandBuffer(state.WorldUnmanaged)
+                .AsParallelWriter();
 
             ZombieRiseJob job = new ZombieRiseJob();
             job.SetDelta(Time.DeltaTime);

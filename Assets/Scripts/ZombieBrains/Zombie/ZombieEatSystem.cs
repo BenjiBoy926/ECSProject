@@ -19,8 +19,15 @@ namespace ZombieBrains
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            var commandSingleton = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
-            var commandWriter = commandSingleton.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter();
+            if (!HasSingleton<Brain>())
+            {
+                state.Enabled = false;
+                return;
+            }
+
+            var commandWriter = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
+                .CreateCommandBuffer(state.WorldUnmanaged)
+                .AsParallelWriter();
             var brain = GetAspect<BrainAspect>(GetSingletonEntity<Brain>()).GetSnapshot();
 
             ZombieEatJob job = new ZombieEatJob();

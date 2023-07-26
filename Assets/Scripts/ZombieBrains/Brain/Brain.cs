@@ -9,6 +9,7 @@ namespace ZombieBrains
     {
         public float Radius => HealthPercent * _initialRadius;
         public float3 Scale => HealthPercent * _initialScale;
+        public bool IsAlive => HealthPercent > 0;
         private float HealthPercent => _currentHealth / _maxHealth;
 
         [SerializeField]

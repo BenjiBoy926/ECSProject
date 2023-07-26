@@ -19,6 +19,7 @@ namespace ZombieBrains
         {
             state.RequireForUpdate<Graveyard>();
             state.RequireForUpdate<Tombstone>();
+            state.RequireForUpdate<Brain>();
 
             _random = Random.CreateFromIndex(1000);
             _tombstoneQuery = new EntityQueryBuilder(Allocator.Temp)
@@ -28,6 +29,11 @@ namespace ZombieBrains
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            if (!HasSingleton<Brain>())
+            {
+                state.Enabled = false;
+                return;
+            }
             Entity graveyardEntity = GetSingletonEntity<Graveyard>();
             GraveyardAspect graveyard = GetAspect<GraveyardAspect>(graveyardEntity);
 

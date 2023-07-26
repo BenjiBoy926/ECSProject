@@ -11,6 +11,7 @@ namespace ZombieBrains
             public Entity Entity => _entity;
             public float3 Position => _transform.Position;
             internal float Radius => _brain.Radius;
+            internal bool IsAlive => _brain.IsAlive;
 
             private Entity _entity;
             private LocalToWorld _transform;
@@ -29,7 +30,9 @@ namespace ZombieBrains
             }
         }
 
+        public Entity Entity => _entity;
         public float3 Position => GetSnapshot().Position;
+        public bool IsAlive => GetSnapshot().IsAlive;
 
         private readonly Entity _entity;
         private readonly RefRW<LocalToWorld> _transform;

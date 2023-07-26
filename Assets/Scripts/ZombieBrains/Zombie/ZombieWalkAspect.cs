@@ -14,18 +14,18 @@ namespace ZombieBrains
         private readonly RefRO<ZombieWalkTag> _tag;
         private readonly RefRW<Timer> _timer;
 
-        public void Walk(TimeData current)
+        public void Walk(BrainAspect.Snapshot brain, TimeData current)
         {
-            _transform.ValueRW.Position = NextPosition(current);
-            _transform.ValueRW.Rotation = NextRotation(current);
+            _transform.ValueRW.Position = NextPosition(brain, current);
+            _transform.ValueRW.Rotation = NextRotation(brain, current);
         }
-        private float3 NextPosition(TimeData current)
+        private float3 NextPosition(BrainAspect.Snapshot brain, TimeData current)
         {
             LocalTransform transformRO = _transform.ValueRO;
             Zombie zombieRO = _zombie.ValueRO;
-            return transformRO.Position + transformRO.Forward() * zombieRO.WalkSpeed * current.DeltaTime; 
+            return transformRO.Position + DirectionToBrain(brain) * zombieRO.WalkSpeed * current.DeltaTime; 
         }
-        private quaternion NextRotation(TimeData current)
+        private quaternion NextRotation(BrainAspect.Snapshot brain, TimeData current)
         {
             LocalTransform transformRO = _transform.ValueRO;
             Zombie zombieRO = _zombie.ValueRO;
@@ -37,7 +37,13 @@ namespace ZombieBrains
             }
             float sway = zombieRO.SwayAmplitude * (float)math.sin(zombieRO.SwayFrequency * timerRO.TimeSince(current));
             float3 up = math.up() + transformRO.Right() * sway;
-            return quaternion.LookRotation(transformRO.Forward(), up);
+            return quaternion.LookRotation(DirectionToBrain(brain), up);
+        }
+        private float3 DirectionToBrain(BrainAspect.Snapshot brain)
+        {
+            float3 direction = brain.Position - _transform.ValueRO.Position;
+            direction.y = 0;
+            return math.normalize(direction);
         }
         public bool IsInStoppingRange(BrainAspect.Snapshot brain)
         {

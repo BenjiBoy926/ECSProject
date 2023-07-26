@@ -20,10 +20,15 @@ namespace ZombieBrains
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            if (!HasSingleton<Brain>())
+            {
+                state.Enabled = false;
+                return;
+            }
             BrainAspect.Snapshot brain = GetAspect<BrainAspect>(GetSingletonEntity<Brain>()).GetSnapshot();
-
-            var singleton = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
-            var commandWriter = singleton.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter();
+            var commandWriter = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
+                .CreateCommandBuffer(state.WorldUnmanaged)
+                .AsParallelWriter();
 
             ZombieWalkJob job = new ZombieWalkJob();
             job.SetCurrentTime(Time);
@@ -56,7 +61,7 @@ namespace ZombieBrains
         [BurstCompile]
         private void Execute(ZombieWalkAspect zombie, [ChunkIndexInQuery] int sortKey)
         {
-            zombie.Walk(_currentTime);
+            zombie.Walk(_brain, _currentTime);
             if (zombie.IsInStoppingRange(_brain))
             {
                 _commandWriter.RemoveComponent<ZombieWalkTag>(sortKey, zombie.Entity);
