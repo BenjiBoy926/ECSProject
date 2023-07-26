@@ -295,10 +295,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _riseSpeed: 1
   _walkSpeed: 0.5
-  _swayAmplitude: 0.2
+  _swayAmplitude: 0.5
   _swayFrequency: 2
   _eatDamagePerSecond: 1
-  _eatAmplitude: 0.2
+  _eatAmplitude: 1
   _eatFrequency: 10
   _brainMargin: 0.5
 --- !u!1 &7113616616879287334

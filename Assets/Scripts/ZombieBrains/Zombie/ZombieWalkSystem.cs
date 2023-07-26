@@ -20,7 +20,7 @@ namespace ZombieBrains
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            Brain brain = GetSingleton<Brain>();
+            BrainAspect.Snapshot brain = GetAspect<BrainAspect>(GetSingletonEntity<Brain>()).GetSnapshot();
 
             var singleton = GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
             var commandWriter = singleton.CreateCommandBuffer(state.WorldUnmanaged).AsParallelWriter();
@@ -37,14 +37,14 @@ namespace ZombieBrains
     public partial struct ZombieWalkJob : IJobEntity
     {
         private TimeData _currentTime;
-        private Brain _brain;
+        private BrainAspect.Snapshot _brain;
         private EntityCommandBuffer.ParallelWriter _commandWriter;
 
         public void SetCurrentTime(TimeData current)
         {
             _currentTime = current;
         }
-        public void SetBrain(Brain brain)
+        public void SetBrain(BrainAspect.Snapshot brain)
         {
             _brain = brain;
         }
@@ -60,6 +60,7 @@ namespace ZombieBrains
             if (zombie.IsInStoppingRange(_brain))
             {
                 _commandWriter.RemoveComponent<ZombieWalkTag>(sortKey, zombie.Entity);
+                _commandWriter.AddComponent<ZombieEatTag>(sortKey, zombie.Entity);
             }
         }
     }

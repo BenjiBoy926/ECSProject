@@ -7,23 +7,29 @@ namespace ZombieBrains
 {
     public struct Brain : IComponentData
     {
-        public float3 Position => _position;
         public float Radius => _radius;
+        public float3 Scale => HealthPercent * _initialScale;
+        private float HealthPercent => _currentHealth / _maxHealth;
 
-        [SerializeField]
-        private float3 _position;
         [SerializeField]
         private float _radius;
+        [SerializeField]
+        private float _currentHealth;
+        [SerializeField]
+        private float _maxHealth;
+        [SerializeField]
+        private float3 _initialScale;
 
-        public Brain(float3 position, float radius)
+        public Brain(float radius, float maxHealth, float3 initialScale)
         {
-            _position = position;
             _radius = radius;
+            _currentHealth = maxHealth;
+            _maxHealth = maxHealth;
+            _initialScale = initialScale;
         }
-
-        public bool Contains(float3 point, float margin)
+        public void TakeDamage(float damage)
         {
-            return math.distance(point, _position) <= (_radius + margin);
+            _currentHealth -= damage;
         }
     }
 }

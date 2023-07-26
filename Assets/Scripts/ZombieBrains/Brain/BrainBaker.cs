@@ -8,8 +8,10 @@ namespace ZombieBrains
         {
             Entity brainEntity = GetEntity(TransformUsageFlags.Renderable);
             AddComponent(brainEntity, new Brain(
-                authoring.transform.position,
-                authoring.Radius));
+                authoring.Radius,
+                authoring.MaxHealth,
+                authoring.transform.localScale));
+            AddBuffer<BrainDamageBufferElement>(brainEntity);
         }
     }   
 }

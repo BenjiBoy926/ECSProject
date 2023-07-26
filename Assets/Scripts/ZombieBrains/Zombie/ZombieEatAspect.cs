@@ -13,5 +13,25 @@ namespace ZombieBrains
         private readonly RefRO<Zombie> _zombie;
         private readonly RefRO<ZombieEatTag> _tag;
         private readonly RefRW<Timer> _timer;
+
+        public float Eat(BrainAspect.Snapshot brain, TimeData current)
+        {
+            _transform.ValueRW.Rotation = NextRotation(brain, current);
+            return _zombie.ValueRO.EatDamagePerSecond * current.DeltaTime;
+        }
+        private quaternion NextRotation(BrainAspect.Snapshot brain, TimeData current)
+        {
+            LocalTransform transformRO = _transform.ValueRO;
+            Zombie zombieRO = _zombie.ValueRO;
+            Timer timerRO = _timer.ValueRO;
+
+            if (!timerRO.IsRunning)
+            {
+                _timer.ValueRW.Start(current);
+            }
+            float sway = zombieRO.EatAmplitude * (float)math.sin(zombieRO.EatFrequency * timerRO.TimeSince(current));
+            float3 forward = brain.Position - transformRO.Position + math.up() * sway;
+            return quaternion.LookRotation(forward, math.up());
+        }
     }
 }

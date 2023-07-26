@@ -13,12 +13,12 @@ namespace ZombieBrains
             AddComponent(zombie, new Zombie(
                 authoring.RiseSpeed,
                 authoring.WalkSpeed,
+                authoring.BrainMargin,
                 authoring.SwayAmplitude,
                 authoring.SwayFrequency,
                 authoring.EatDamagePerSecond,
                 authoring.EatAmplitude,
-                authoring.EatFrequency,
-                authoring.BrainMargin));
+                authoring.EatFrequency));
             AddComponent(zombie, new ZombieRiseTag());
             AddComponent(zombie, new Timer());
         }

@@ -49,6 +49,7 @@ MonoBehaviour:
   _totalTombstones: 250
   _tombstoneRotation: {x: -0.25, y: 0.25}
   _tombstoneScale: {x: 0.5, y: 1.5}
+  _tombstoneBrainMargin: 5
   _tombstonePrefab: {fileID: 4958667688186608147, guid: 97a296f944b4a8e40b92e44323658208,
     type: 3}
   _zombieSpawnDelay: 0.5
@@ -171,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collider: {fileID: 5618775231700842365}
-  _radiusMargin: 5
+  _maxHealth: 100
 --- !u!1 &7384682827604995459
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,8 +25,11 @@ namespace ZombieBrains
                 return _collider.radius * maxScaleComponent;
             }
         }
+        public float MaxHealth => _maxHealth;
 
         [SerializeField]
         private SphereCollider _collider;
+        [SerializeField]
+        private float _maxHealth;
     }
 }

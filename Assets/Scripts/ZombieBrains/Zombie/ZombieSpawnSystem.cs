@@ -64,7 +64,7 @@ namespace ZombieBrains
         }
         private quaternion GetZombieRotation(ref SystemState state)
         {
-            Brain brain = GetSingleton<Brain>();
+            BrainAspect brain = GetAspect<BrainAspect>(GetSingletonEntity<Brain>());
             float3 toBrain = brain.Position - _randomlySelectedTombstone.ZombieSpawnPosition;
             toBrain.y = 0;
             return quaternion.LookRotation(toBrain, math.up());

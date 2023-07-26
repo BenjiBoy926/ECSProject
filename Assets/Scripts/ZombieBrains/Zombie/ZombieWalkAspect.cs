@@ -39,7 +39,7 @@ namespace ZombieBrains
             float3 up = math.up() + transformRO.Right() * sway;
             return quaternion.LookRotation(transformRO.Forward(), up);
         }
-        public bool IsInStoppingRange(Brain brain)
+        public bool IsInStoppingRange(BrainAspect.Snapshot brain)
         {
             return brain.Contains(_transform.ValueRO.Position, _zombie.ValueRO.BrainMargin);
         }
