@@ -54,8 +54,16 @@ namespace ZombieBrains
         [BurstCompile]
         private void Execute(ZombieEatAspect zombie, [ChunkIndexInQuery] int sortKey)
         {
-            float eatDamage = zombie.Eat(_brain, _currentTime);
-            _commandWriter.AppendToBuffer(sortKey, _brain.Entity, new BrainDamageBufferElement(eatDamage));
+            if (zombie.IsInEatingRange(_brain))
+            {
+                float eatDamage = zombie.Eat(_brain, _currentTime);
+                _commandWriter.AppendToBuffer(sortKey, _brain.Entity, new BrainDamageBufferElement(eatDamage));
+            }
+            else
+            {
+                _commandWriter.RemoveComponent<ZombieEatTag>(sortKey, zombie.Entity);
+                _commandWriter.AddComponent<ZombieWalkTag>(sortKey, zombie.Entity);
+            }
         }
     }
 }

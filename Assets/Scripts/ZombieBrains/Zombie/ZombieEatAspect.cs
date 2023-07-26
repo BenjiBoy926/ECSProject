@@ -33,5 +33,9 @@ namespace ZombieBrains
             float3 forward = brain.Position - transformRO.Position + math.up() * sway;
             return quaternion.LookRotation(forward, math.up());
         }
+        public bool IsInEatingRange(BrainAspect.Snapshot brain)
+        {
+            return brain.Contains(_transform.ValueRO.Position, _zombie.ValueRO.EatingRange);
+        }
     }
 }

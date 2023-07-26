@@ -41,7 +41,7 @@ namespace ZombieBrains
         }
         public bool IsInStoppingRange(BrainAspect.Snapshot brain)
         {
-            return brain.Contains(_transform.ValueRO.Position, _zombie.ValueRO.BrainMargin);
+            return brain.Contains(_transform.ValueRO.Position, _zombie.ValueRO.StoppingRange);
         }
     }
 }
